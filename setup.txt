@@ -1,0 +1,10 @@
+set env path:
+SET PATH=C:\ALLABAKASH\setups\node22160;%PATH%
+SET PATH=C:\ALLABAKASH\setups\node22160\node_modules\.bin;%PATH%
+
+create API
+npx create-react-app gajula-reactjs-app
+npx agrippa generate customer --styling css --typescript
+npx agrippa generate awss3 --styling css --typescript
+npx agrippa generate book --styling css --typescript
+npm start
