@@ -34,7 +34,7 @@ function App() {
         </header>
 
         <Router>
-          <Tabs tabs={tabData} />
+          <Tabs />
           <div className="tab-content">
             <Routes>
               <Route path="/home" element={<Home />} />
