@@ -8,6 +8,7 @@ function Tabs(){
 
   const [activeTab, setActiveTab] = useState('home'); // Set initial active tab
   const navigate = useNavigate();
+
   const goToRoutePage = (tabName, path) => {
         console.log('path--',path)
         console.log('tabName---',tabName)
@@ -58,4 +59,5 @@ function Tabs(){
       </div>
     );
 }
+
 export default Tabs;
