@@ -18,8 +18,7 @@ const Tabs = ({ tabs }) => {
             <button
               key={tab.id}
               className={`tab-button ${activeTab === tab.id ? 'active' : ''}`}
-              onClick={() => handleTabClick(tab.id)}
-            >
+              onClick={() => handleTabClick(tab.id)} >
               {tab.label}
             </button>
           ))}
@@ -28,8 +27,7 @@ const Tabs = ({ tabs }) => {
           {tabs.map((tab) => (
             <div
               key={tab.id}
-              className={`tab-pane ${activeTab === tab.id ? 'active' : ''}`}
-            >
+              className={`tab-pane ${activeTab === tab.id ? 'active' : ''}`}>
               {tab.content}
             </div>
           ))}
