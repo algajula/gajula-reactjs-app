@@ -7,4 +7,20 @@ npx create-react-app gajula-reactjs-app
 npx agrippa generate customer --styling css --typescript
 npx agrippa generate awss3 --styling css --typescript
 npx agrippa generate book --styling css --typescript
+
+npx create-react-app gajula-reactjs-app
+
 npm start
+
+
+npm run build:dev
+npm run start:dev
+
+Add Tabs COmponent:
+npm install @mui/material @emotion/react @emotion/styled
+npm install flowbite-react
+npm install react-tabs
+npm install react-scripts --save
+npm install react-scripts@2.1.8
+
+npx agrippa generate tabs --styling css --typescript
