@@ -1,6 +1,6 @@
 set env path:
-SET PATH=C:\ALLABAKASH\setups\node22160;%PATH%
-SET PATH=C:\ALLABAKASH\setups\node22160\node_modules\.bin;%PATH%
+SET PATH=C:\ALLABAKASH\setups\nodejs20;%PATH%
+SET PATH=C:\ALLABAKASH\setups\nodejs20\node_modules\.bin;%PATH%
 
 create API
 npx create-react-app gajula-reactjs-app

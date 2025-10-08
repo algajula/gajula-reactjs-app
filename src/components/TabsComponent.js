@@ -1,4 +1,4 @@
-import classes from './tabs.css';
+import classes from '..//css/tabs.css';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
