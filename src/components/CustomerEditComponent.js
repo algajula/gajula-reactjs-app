@@ -3,9 +3,10 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react
 function CustomerEditComponent() {
     console.log('----CustomerEditComponent--')
     const location = useLocation();
-    const customer = location.state;
-    const cust_uid = customer?.cust_uid;
+    const state = location.state;
+    const cust_uid = state?.cust_uid;
     console.log('cust_uid--',cust_uid)
+    const customer = state?.obj;
 
 return (
 
@@ -17,22 +18,22 @@ return (
                 <table border="1" align="left" style={{ backgroundColor: '#a9d1b0', borderColor: '#003366' }}>
                     <tr>
                         <td>Custamer Number:
-                            <label><input type="text" name="custnumber" id="custnumber" value={ customer?.cust_uid}/> </label>
+                            <label><input type="text" name="custnumber" id="custnumber" value={ customer?.custNumber}/> </label>
                         </td>
                     </tr>
                     <tr>
                         <td>Custamer Name:
-                            <label><input type="text" name="custname" id="custname" /> </label>
+                            <label><input type="text" name="custname" id="custname" value={ customer?.custName} /> </label>
                         </td>
                     </tr>
                     <tr>
                         <td>Email Address:
-                            <label><input type="text" name="email_address" id="email_address" /> </label>
+                            <label><input type="text" name="email_address" id="email_address" value={ customer?.emailAddress} /> </label>
                         </td>
                     </tr>
                     <tr>
                         <td>Phone:
-                            <label> <input type="text" name="phone" id="phone" /> </label>
+                            <label> <input type="text" name="phone" id="phone" value={ customer?.phone} /> </label>
                         </td>
                     </tr>
                      <tr>

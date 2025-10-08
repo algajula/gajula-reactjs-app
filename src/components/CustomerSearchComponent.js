@@ -44,11 +44,12 @@ function CustomerSearchComponent() {
         }
       };
 
-    const goToRoutePage = (cust_uid) => {
-            console.log('cust_uid--',cust_uid)
+    const goToRoutePage = (item) => {
+            console.log('cust_uid--',item.cust_uid)
             const customer = {
               message: 'customer edit window',
-              cust_uid: cust_uid
+              cust_uid: item.cust_uid,
+              obj: item
             };
             navigate('/customer/editcustomer/', { state: customer });
       };
@@ -102,7 +103,7 @@ return (
                            <td>{item.phone}</td>
                            <td>
                                 <button id="editcustomer" className="editcustomer"
-                                    onClick={() => goToRoutePage(item.cust_uid)} >
+                                    onClick={() => goToRoutePage(item)} >
                                 Edit </button>
                             </td>
                          </tr>
