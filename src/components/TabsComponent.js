@@ -19,23 +19,13 @@ function Tabs(){
   return (
       <div className="tabs-container">
         <div className="tab-buttons">
-        <button
-          className={activeTab === 'home' ? 'active' : ''}
-          onClick={() => goToRoutePage('home', '/home')} > Home</button>
-        <button
-          className={activeTab === 'customer' ? 'active' : ''}
-          onClick={() => goToRoutePage('book', '/customer')} > Customer</button>
-        <button
-          className={activeTab === 'book' ? 'active' : ''}
-          onClick={() => goToRoutePage('book', '/book')} > Book</button>
-
-      <div class="navbar">
+         <div class="navbar">
           <a href="/home">Home</a>
           <div class="subnav">
               <button class="subnavbtn">Customer <i class="fa fa-caret-down"></i></button>
               <div class="subnav-content">
                   <a href="/customer/searchcustomer">Search Customer</a>
-                  <a href="/customer/editcustomer">Add Customer</a>
+                  <a href="/customer/editcustomer/new">Add Customer</a>
               </div>
           </div>
           <div class="subnav">
@@ -53,6 +43,7 @@ function Tabs(){
               </div>
           </div>
           <a href="/contactus">Contact</a>
+          <a href="/about">About</a>
       </div>
 
       </div>

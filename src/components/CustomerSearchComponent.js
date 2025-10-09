@@ -47,11 +47,11 @@ function CustomerSearchComponent() {
     const goToRoutePage = (item) => {
             console.log('cust_uid--',item.cust_uid)
             const customer = {
-              message: 'customer edit window',
+              actionType: 'edit',
               cust_uid: item.cust_uid,
               obj: item
             };
-            navigate('/customer/editcustomer/', { state: customer });
+            navigate('/customer/editcustomer/edit', { state: customer });
       };
 
     const handleCustomerNumberChange = (event) => {
