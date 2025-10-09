@@ -45,6 +45,7 @@ function CustomerEditComponent() {
         console.log('---save customer---------')
         event.preventDefault();
         console.log('customer:', payloadInitial);
+        payloadInitial.createdDate="2025-10-09 08:00:00";
         try {
           console.log('actionType--',actionType);
           const url = `http://localhost:8080/gajula/api/v1/customer/ui/saveCustomer/${actionType}`;
@@ -53,7 +54,7 @@ function CustomerEditComponent() {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(customer),
+            body: JSON.stringify(payloadInitial),
           });
          if (response.ok) {
             const result = await response.json();
