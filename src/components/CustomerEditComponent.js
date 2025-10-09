@@ -6,27 +6,36 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation, useParams  }
 function CustomerEditComponent() {
     console.log('----CustomerEditComponent--')
     const payloadInitial = {
-        cust_uid: "1111",
+        cust_uid: 1111,
         custNumber: "1111",
         custName: "TEST",
         emailAddress: "TEST@gmail.com",
         phone: "9997772223",
       };
     const [customer, setCustomer] = useState(payloadInitial);
-    const setCust_uid = (cust_uid) => {
-        setCustomer.cust_uid = cust_uid
+    const setCust_uid = (event) => {
+        console.log('setCust_uid onchange')
+        const temp = payloadInitial;
+        payloadInitial.cust_uid = event.target.value;
+        //customer.cust_uid = event.target.value;
     }
-    const setCustNumber = (custNumber) => {
-        setCustomer.custNumber = custNumber
+    const setCustNumber = (event) => {
+        console.log('setCustNumber onchange')
+        const temp = payloadInitial;
+        payloadInitial.custNumber = event.target.value;
+        setCustomer.custNumber = event.target.value;
     }
-    const setCustName = (custName) => {
-        setCustomer.custName = custName
+    const setCustName = (event) => {
+        console.log('setCustName onchange')
+        let temp = payloadInitial;
+        payloadInitial.custName = event.target.value;
+        setCustomer.custName = event.target.value;
     }
-    const setEmailAddress = (emailAddress) => {
-        setCustomer.emailAddress = emailAddress
+    const setEmailAddress = (event) => {
+        customer.emailAddress = event.target.value;
     }
-    const setPhone = (phone) => {
-        setCustomer.phone = phone
+    const setPhone = (event) => {
+        customer.phone = event.target.value;
     }
 
     const { actionType } = useParams();
@@ -56,7 +65,26 @@ function CustomerEditComponent() {
     const savecustomer = async (event) => {
         console.log('---save customer---------')
         event.preventDefault();
-        console.log('custName:', customer.custName);
+        console.log('customer:', customer);
+        try {
+          console.log('actionType--',actionType);
+          const url = `http://localhost:8080/gajula/api/v1/customer/ui/saveCustomer/${actionType}`;
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(customer),
+          });
+         if (response.ok) {
+            const result = await response.json();
+            console.log('Form submitted successfully:', result);
+          } else {
+            console.error('Form submission failed:', response.statusText);
+          }
+        } catch (error) {
+            console.error('Error during form submission:', error);
+        }
     };
 
 return (
@@ -67,32 +95,33 @@ return (
             <h3 align="left">Add/Modify Customer</h3>
             <form action="#"  id="customerform">
                 <table border="1" align="left" style={{ backgroundColor: '#a9d1b0', borderColor: '#003366' }}>
+                    <tbody>
                     <tr>
                         <td>Custamer Number:
                             <label>
-                                <input type="text" name="custnumber" id="custnumber"
-                                    value={ customer.custNumber} onChange={(e) => setCustNumber(e.target.value)} /> </label>
+                                <input type="text" name="custNumber" id="custNumber"
+                                    value={ customer.custNumber} onChange={setCustNumber} /> </label>
                         </td>
                     </tr>
                     <tr>
                         <td>Custamer Name:
                             <label>
-                                <input type="text" name="custname" id="custname"
-                                    value={ customer.custName} onChange={(e) => setCustName(e.target.value)} /> </label>
+                                <input type="text" name="custName" id="custName"
+                                    value={ customer.custName} onChange={setCustName} /> </label>
                         </td>
                     </tr>
                     <tr>
                         <td>Email Address:
                             <label>
-                                <input type="text" name="email_address" id="email_address"
-                                    value={ customer.emailAddress} onChange={(e) => setEmailAddress(e.target.value)}  /> </label>
+                                <input type="text" name="emailAddress" id="emailAddress"
+                                    value={ customer.emailAddress} onChange={setEmailAddress}  /> </label>
                         </td>
                     </tr>
                     <tr>
                         <td>Phone:
                             <label>
                                 <input type="text" name="phone" id="phone"
-                                    value={ customer.phone} onChange={(e) => setPhone(e.target.value)}  /> </label>
+                                    value={ customer.phone} onChange={setPhone}  /> </label>
                         </td>
                     </tr>
                      <tr>
@@ -107,6 +136,7 @@ return (
                               </button>
                         </td>
                     </tr>
+                    </tbody>
                 </table>
              </form>
         </div>
