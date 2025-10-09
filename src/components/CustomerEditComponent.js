@@ -5,6 +5,10 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation, useParams  }
 
 function CustomerEditComponent() {
     console.log('----CustomerEditComponent--')
+    const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [saveResponse, setSaveResponse] = useState("");
+
     const payloadInitial = {
         cust_uid: 1111,
         custNumber: "1111",
@@ -12,32 +16,7 @@ function CustomerEditComponent() {
         emailAddress: "TEST@gmail.com",
         phone: "9997772223",
       };
-    const [customer, setCustomer] = useState(payloadInitial);
-    const setCust_uid = (event) => {
-        console.log('setCust_uid onchange')
-        const temp = payloadInitial;
-        payloadInitial.cust_uid = event.target.value;
-        //customer.cust_uid = event.target.value;
-    }
-    const setCustNumber = (event) => {
-        console.log('setCustNumber onchange')
-        const temp = payloadInitial;
-        payloadInitial.custNumber = event.target.value;
-        setCustomer.custNumber = event.target.value;
-    }
-    const setCustName = (event) => {
-        console.log('setCustName onchange')
-        let temp = payloadInitial;
-        payloadInitial.custName = event.target.value;
-        setCustomer.custName = event.target.value;
-    }
-    const setEmailAddress = (event) => {
-        customer.emailAddress = event.target.value;
-    }
-    const setPhone = (event) => {
-        customer.phone = event.target.value;
-    }
-
+    const [customer, setCustomer] = useState({});
     const { actionType } = useParams();
     let buttonText = '';
     let buttonClass = '';
@@ -65,7 +44,7 @@ function CustomerEditComponent() {
     const savecustomer = async (event) => {
         console.log('---save customer---------')
         event.preventDefault();
-        console.log('customer:', customer);
+        console.log('customer:', payloadInitial);
         try {
           console.log('actionType--',actionType);
           const url = `http://localhost:8080/gajula/api/v1/customer/ui/saveCustomer/${actionType}`;
@@ -79,6 +58,7 @@ function CustomerEditComponent() {
          if (response.ok) {
             const result = await response.json();
             console.log('Form submitted successfully:', result);
+            setSaveResponse(result.result);
           } else {
             console.error('Form submission failed:', response.statusText);
           }
@@ -86,6 +66,25 @@ function CustomerEditComponent() {
             console.error('Error during form submission:', error);
         }
     };
+
+    const handleCustNumberChange = (event) => {
+        console.log('setCustNumber onchange')
+        temp = payloadInitial;
+        payloadInitial.custNumber = event.target.value;
+    }
+    const handleCustNameChange = (event) => {
+        console.log('setCustName onchange')
+        temp = payloadInitial;
+        payloadInitial.custName = event.target.value;
+    }
+    const handleEmailAddressChange = (event) => {
+        temp = payloadInitial;
+        payloadInitial.emailAddress = event.target.value;
+    }
+    const handlePhoneChange = (event) => {
+        temp = payloadInitial;
+        payloadInitial.phone = event.target.value;
+    }
 
 return (
 
@@ -100,28 +99,28 @@ return (
                         <td>Custamer Number:
                             <label>
                                 <input type="text" name="custNumber" id="custNumber"
-                                    value={ customer.custNumber} onChange={setCustNumber} /> </label>
+                                    value={customer.custNumber} onChange={handleCustNumberChange} /> </label>
                         </td>
                     </tr>
                     <tr>
                         <td>Custamer Name:
                             <label>
                                 <input type="text" name="custName" id="custName"
-                                    value={ customer.custName} onChange={setCustName} /> </label>
+                                    value={customer.custName} onChange={handleCustNameChange} /> </label>
                         </td>
                     </tr>
                     <tr>
                         <td>Email Address:
                             <label>
                                 <input type="text" name="emailAddress" id="emailAddress"
-                                    value={ customer.emailAddress} onChange={setEmailAddress}  /> </label>
+                                    value={customer.emailAddress} onChange={handleEmailAddressChange}  /> </label>
                         </td>
                     </tr>
                     <tr>
                         <td>Phone:
                             <label>
                                 <input type="text" name="phone" id="phone"
-                                    value={ customer.phone} onChange={setPhone}  /> </label>
+                                    value={customer.phone} onChange={handlePhoneChange}  /> </label>
                         </td>
                     </tr>
                      <tr>
@@ -131,8 +130,8 @@ return (
                      </tr>
                     <tr>
                         <td colspan="2" style= {{ textAlign: 'center'}}>
-                            <button className={buttonClass} onClick={savecustomer}>
-                                {buttonText}
+                            <button className={buttonClass} onClick={savecustomer} disabled={loading}>
+                                {loading ? 'Fetching...' : buttonText}
                               </button>
                         </td>
                     </tr>
