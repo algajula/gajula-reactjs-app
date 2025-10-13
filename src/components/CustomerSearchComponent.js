@@ -45,7 +45,8 @@ function CustomerSearchComponent() {
       };
 
     const goToRoutePage = (item) => {
-            console.log('cust_uid--',item.cust_uid)
+            console.log('cust_uid--',item.cust_uid);
+            //console.log('cust_uid--',item.vehicleList);
             const customer = {
               actionType: 'edit',
               cust_uid: item.cust_uid,

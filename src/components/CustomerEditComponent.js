@@ -5,6 +5,10 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation, useParams  }
 
 function CustomerEditComponent() {
     console.log('----CustomerEditComponent--')
+    const location = useLocation();
+    const state = location.state;
+    console.log('state-',state);
+
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
     const [saveResponse, setSaveResponse] = useState("");
@@ -15,37 +19,48 @@ function CustomerEditComponent() {
         custName: "TEST",
         emailAddress: "TEST@gmail.com",
         phone: "9997772223",
-      };
+        vin: "vin3301",
+        vrn: "vrn3301"
+        };
     const [customer, setCustomer] = useState({});
     const { actionType } = useParams();
     let buttonText = '';
     let buttonClass = '';
-    const location = useLocation();
     let temp;
-    console.log('actionType--',actionType);
+    let vehicleList = [];
+    customer.vehicleList = [];
     if (actionType === 'edit') {
         buttonText = 'UPDATE';
         buttonClass = 'UPDATE';
+        console.log('----EDIT--');
         if (location.state){
-            const state = location.state;
-            console.log('state-',state);
             temp = state?.obj;
             customer.cust_uid = temp.cust_uid;
             customer.custNumber = temp.custNumber;
             customer.custName = temp.custName;
             customer.emailAddress = temp.emailAddress;
             customer.phone = temp.phone;
+            vehicleList = temp.vehicleList;
+            customer.vin = vehicleList[0].vin;
+            customer.vrn = vehicleList[0].vrn;
         }
      } else if (actionType === 'new') {
         buttonText = 'SAVE';
         buttonClass = 'SAVE';
+        console.log('----NEW--');
+        customer.custNumber = payloadInitial.custNumber;
+        customer.custName   = payloadInitial.custName;
+        customer.emailAddress = payloadInitial.emailAddress;
+        customer.phone = payloadInitial.phone;
+        customer.vin = payloadInitial.vin;
+        customer.vrn = payloadInitial.vrn;
       }
 
     const savecustomer = async (event) => {
         console.log('---save customer---------')
         event.preventDefault();
         console.log('customer:', payloadInitial);
-        payloadInitial.createdDate="2025-10-09 08:00:00";
+        payloadInitial.createdDate="2025-10-13 08:00:00";
         try {
           console.log('actionType--',actionType);
           const url = `http://localhost:8080/gajula/api/v1/customer/ui/saveCustomer/${actionType}`;
@@ -68,13 +83,15 @@ function CustomerEditComponent() {
         }
     };
 
-    const handleCustNumberChange = (event) => {
-        console.log('setCustNumber onchange')
+    function handleCustNumberChange(event){
+        console.log('setCustNumber onchange', event.target.value);
         temp = payloadInitial;
         payloadInitial.custNumber = event.target.value;
+        customer.custNumber = event.target.value;
+        setCustomer(payloadInitial);
     }
     const handleCustNameChange = (event) => {
-        console.log('setCustName onchange')
+        console.log('setCustName onchange');
         temp = payloadInitial;
         payloadInitial.custName = event.target.value;
     }
@@ -85,6 +102,14 @@ function CustomerEditComponent() {
     const handlePhoneChange = (event) => {
         temp = payloadInitial;
         payloadInitial.phone = event.target.value;
+    }
+    const handleVinChange = (event) => {
+        temp = payloadInitial;
+        //payloadInitial.phone = event.target.value;
+    }
+    const handleVrnChange = (event) => {
+        temp = payloadInitial;
+        //payloadInitial.phone = event.target.value;
     }
 
 return (
@@ -122,6 +147,20 @@ return (
                             <label>
                                 <input type="text" name="phone" id="phone"
                                     value={customer.phone} onChange={handlePhoneChange}  /> </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>VIN:
+                            <label>
+                                <input type="text" name="vin" id="vin"
+                                    value={customer.vin} onChange={handleVinChange}  /> </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>VRN:
+                            <label>
+                                <input type="text" name="vrn" id="vrn"
+                                    value={customer.vrn} onChange={handleVrnChange}  /> </label>
                         </td>
                     </tr>
                      <tr>
