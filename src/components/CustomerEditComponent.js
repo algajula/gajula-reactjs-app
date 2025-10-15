@@ -83,10 +83,12 @@ function CustomerEditComponent() {
             console.log('Form submitted successfully:', result);
             setSaveResponse(result.result);
           } else {
-            console.error('Form submission failed:', response.statusText);
+            console.error('Form submission failed:');
+            setSaveResponse("Error during form submission 01");
           }
         } catch (error) {
             console.error('Error during form submission:', error);
+            setSaveResponse("Error during form submission 02");
         }
     };
 
@@ -96,6 +98,7 @@ return (
     <div class="content" id="content">
         <div align="center">
             <h3 align="left">Add/Modify Customer</h3>
+            <label style ={{ color: 'red', fontWeight: 'bold' }} > {saveResponse}  </label>
             <form action="#"  id="customerform">
                 <table border="1" align="left" style={{ backgroundColor: '#a9d1b0', borderColor: '#003366' }}>
                     <tbody>
