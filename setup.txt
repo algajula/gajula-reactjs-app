@@ -22,5 +22,6 @@ npm install flowbite-react
 npm install react-tabs
 npm install react-scripts --save
 npm install react-scripts@2.1.8
+npm install react-datepicker --save
 
 npx agrippa generate tabs --styling css --typescript

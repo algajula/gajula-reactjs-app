@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation, useParams  } from 'react-router-dom';
-
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 
 function CustomerEditComponent() {
@@ -8,27 +9,28 @@ function CustomerEditComponent() {
     const location = useLocation();
     const state = location.state;
     console.log('state-',state);
-
+    const { actionType } = useParams();
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
     const [saveResponse, setSaveResponse] = useState("");
+    const inputFormRefs = useRef({});
 
-    const payloadInitial = {
-        cust_uid: 1111,
-        custNumber: "1111",
-        custName: "TEST",
-        emailAddress: "TEST@gmail.com",
-        phone: "9997772223",
-        vin: "vin3301",
-        vrn: "vrn3301"
-        };
-    const [customer, setCustomer] = useState({});
-    const { actionType } = useParams();
     let buttonText = '';
     let buttonClass = '';
     let temp;
-    let vehicleList = [];
-    customer.vehicleList = [];
+    let vehicleList = {};
+
+    const customer = {
+        cust_uid:  '',
+        custNumber: 1101,
+        custName: 'TEST1101',
+        emailAddress: 'TEST1101@gmail.com',
+        phone: '1234567891',
+        vin: 'Vin1101',
+        vrn: 'Vrn1101',
+        createdDate: new Date()
+        };
+
     if (actionType === 'edit') {
         buttonText = 'UPDATE';
         buttonClass = 'UPDATE';
@@ -47,20 +49,25 @@ function CustomerEditComponent() {
      } else if (actionType === 'new') {
         buttonText = 'SAVE';
         buttonClass = 'SAVE';
-        console.log('----NEW--');
-        customer.custNumber = payloadInitial.custNumber;
-        customer.custName   = payloadInitial.custName;
-        customer.emailAddress = payloadInitial.emailAddress;
-        customer.phone = payloadInitial.phone;
-        customer.vin = payloadInitial.vin;
-        customer.vrn = payloadInitial.vrn;
+        console.log('----NEW--',customer);
       }
 
     const savecustomer = async (event) => {
-        console.log('---save customer---------')
+        const value = inputFormRefs.current;
+        console.log('---save customer---------',value)
         event.preventDefault();
-        console.log('customer:', payloadInitial);
-        payloadInitial.createdDate="2025-10-13 08:00:00";
+        const formData = {};
+        for (const name in inputFormRefs.current) {
+          if( name === "createdDate"){
+            console.log('IF name=',name);
+            formData[name] = inputFormRefs.current[name].value + " 00:00:00";
+          }else{
+            console.log('ELSE name=',name);
+            formData[name] = inputFormRefs.current[name].value;
+          }
+
+        }
+        console.log('Form Data:', formData);
         try {
           console.log('actionType--',actionType);
           const url = `http://localhost:8080/gajula/api/v1/customer/ui/saveCustomer/${actionType}`;
@@ -69,7 +76,7 @@ function CustomerEditComponent() {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(payloadInitial),
+            body: JSON.stringify(customer),
           });
          if (response.ok) {
             const result = await response.json();
@@ -83,35 +90,6 @@ function CustomerEditComponent() {
         }
     };
 
-    function handleCustNumberChange(event){
-        console.log('setCustNumber onchange', event.target.value);
-        temp = payloadInitial;
-        payloadInitial.custNumber = event.target.value;
-        customer.custNumber = event.target.value;
-        setCustomer(payloadInitial);
-    }
-    const handleCustNameChange = (event) => {
-        console.log('setCustName onchange');
-        temp = payloadInitial;
-        payloadInitial.custName = event.target.value;
-    }
-    const handleEmailAddressChange = (event) => {
-        temp = payloadInitial;
-        payloadInitial.emailAddress = event.target.value;
-    }
-    const handlePhoneChange = (event) => {
-        temp = payloadInitial;
-        payloadInitial.phone = event.target.value;
-    }
-    const handleVinChange = (event) => {
-        temp = payloadInitial;
-        //payloadInitial.phone = event.target.value;
-    }
-    const handleVrnChange = (event) => {
-        temp = payloadInitial;
-        //payloadInitial.phone = event.target.value;
-    }
-
 return (
 
 <div class="content_container">
@@ -124,48 +102,60 @@ return (
                     <tr>
                         <td>Custamer Number:
                             <label>
-                                <input type="text" name="custNumber" id="custNumber"
-                                    value={customer.custNumber} onChange={handleCustNumberChange} /> </label>
+                                <input type="text" name="custNumber" id="custNumber" ref={(el) => (inputFormRefs.current.custNumber = el)}
+                                    defaultValue={customer.custNumber}  /> </label>
                         </td>
                     </tr>
                     <tr>
                         <td>Custamer Name:
                             <label>
-                                <input type="text" name="custName" id="custName"
-                                    value={customer.custName} onChange={handleCustNameChange} /> </label>
+                                <input type="text" name="custName" id="custName" ref={(el) => (inputFormRefs.current.custName = el)}
+                                    defaultValue={customer.custName}  /> </label>
                         </td>
                     </tr>
                     <tr>
                         <td>Email Address:
                             <label>
-                                <input type="text" name="emailAddress" id="emailAddress"
-                                    value={customer.emailAddress} onChange={handleEmailAddressChange}  /> </label>
+                                <input type="text" name="emailAddress" id="emailAddress" ref={(el) => (inputFormRefs.current.emailAddress = el)}
+                                    defaultValue={customer.emailAddress}  /> </label>
                         </td>
                     </tr>
                     <tr>
                         <td>Phone:
                             <label>
-                                <input type="text" name="phone" id="phone"
-                                    value={customer.phone} onChange={handlePhoneChange}  /> </label>
+                                <input type="text" name="phone" id="phone" ref={(el) => (inputFormRefs.current.phone = el)}
+                                    defaultValue={customer.phone} /> </label>
                         </td>
                     </tr>
                     <tr>
                         <td>VIN:
                             <label>
-                                <input type="text" name="vin" id="vin"
-                                    value={customer.vin} onChange={handleVinChange}  /> </label>
+                                <input type="text" name="vin" id="vin" ref={(el) => (inputFormRefs.current.vin = el)}
+                                    defaultValue={customer.vin}  /> </label>
                         </td>
                     </tr>
                     <tr>
                         <td>VRN:
                             <label>
-                                <input type="text" name="vrn" id="vrn"
-                                    value={customer.vrn} onChange={handleVrnChange}  /> </label>
+                                <input type="text" name="vrn" id="vrn" ref={(el) => (inputFormRefs.current.vrn = el)}
+                                    defaultValue={customer.vrn}  /> </label>
                         </td>
                     </tr>
+                    <tr>
+                        <td>Created Date:
+                            <label>
+                                <input type="date"
+                                      name="createdDate"
+                                      defaultValue={customer.createdDate}
+                                      ref={(el) => (inputFormRefs.current.createdDate = el)}
+                                      selected={customer.createdDate}
+                                      dateFormat="yyyy-MM-dd hh:mm:ss"/> </label>
+                        </td>
+                     </tr>
                      <tr>
                          <td>
-                             <input type="hidden" name="cust_uid" id="cust_uid" value = {customer.cust_uid} />
+                             <input type="hidden" name="cust_uid" id="cust_uid" ref={(el) => (inputFormRefs.current.cust_uid = el)}
+                             value = {customer.cust_uid} />
                          </td>
                      </tr>
                     <tr>
