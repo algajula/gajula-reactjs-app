@@ -25,7 +25,7 @@ function Tabs(){
               <button class="subnavbtn">Customer <i class="fa fa-caret-down"></i></button>
               <div class="subnav-content">
                   <a href="/customer/searchcustomer">Search Customer</a>
-                  <a href="/customer/editcustomer/new">Add Customer</a>
+                  <a href="/customer/editcustomer/add">Add Customer</a>
               </div>
           </div>
           <div class="subnav">

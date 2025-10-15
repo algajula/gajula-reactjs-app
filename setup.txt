@@ -23,5 +23,6 @@ npm install react-tabs
 npm install react-scripts --save
 npm install react-scripts@2.1.8
 npm install react-datepicker --save
+npm install date-fns
 
 npx agrippa generate tabs --styling css --typescript

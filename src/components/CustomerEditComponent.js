@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation, useParams  }
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
+//import { parse, format } from 'date-fns';
+//const parsedDate = parse(temp.createdDate, 'yyyy-MM-dd hh:mm:ss', new Date());
+//console.log(parsedDate);
 
 function CustomerEditComponent() {
     console.log('----CustomerEditComponent--')
@@ -46,7 +49,7 @@ function CustomerEditComponent() {
             customer.vin = vehicleList[0].vin;
             customer.vrn = vehicleList[0].vrn;
         }
-     } else if (actionType === 'new') {
+     } else if (actionType === 'add') {
         buttonText = 'SAVE';
         buttonClass = 'SAVE';
         console.log('----NEW--',customer);
@@ -68,6 +71,19 @@ function CustomerEditComponent() {
 
         }
         console.log('Form Data:', formData);
+        const vehicle = {
+            vin: formData['vin'],
+            vrn: formData['vrn']
+        }
+        const customerNew = {
+            cust_uid: formData['cust_uid'],
+            custNumber: formData['custNumber'],
+            custName: formData['custName'],
+            emailAddress: formData['emailAddress'],
+            phone: formData['phone'],
+            createdDate: formData['createdDate'],
+            vehicleList: [vehicle]
+        }
         try {
           console.log('actionType--',actionType);
           const url = `http://localhost:8080/gajula/api/v1/customer/ui/saveCustomer/${actionType}`;
@@ -76,7 +92,7 @@ function CustomerEditComponent() {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(customer),
+            body: JSON.stringify(customerNew),
           });
          if (response.ok) {
             const result = await response.json();
