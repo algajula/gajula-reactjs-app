@@ -52,12 +52,32 @@ function AWSS3SearchComponent(){
           }
         };
 
+       function removeExtension(filename) {
+          const lastDotIndex = filename.lastIndexOf('.');
+          if (lastDotIndex === -1) {
+              // No extension found, return the original filename
+              return filename;
+          }
+          return filename.substring(0, lastDotIndex);
+       }
+       function removeFoldernamesFromFile(filename) {
+           const lastSlashIndex = filename.lastIndexOf("/");
+           let newString;
+           if (lastSlashIndex !== -1) {
+             newString = filename.substring(lastSlashIndex + 1);
+           } else {
+             newString = filename; // No slash found, keep original string
+           }
+           console.log(newString); // Output: file.txt
+        }
+
       const downloadS3File = (item) => {
           console.log('File Name--',item.fileName);
           const awss3bean = {
             obj: item
           };
-          fetch('http://localhost:8080/gajula/api/v1/awss3/service/downloads3file/?fileName='+item.fileName+'&bucketName='+item.bucketName+'&fileType='+item.keyType) // Replace with your backend URL
+          const downloadFileName = removeFoldernamesFromFile(item.fileName);
+          fetch('http://localhost:8080/gajula/api/v1/aws/s3/ui/downloads3file?fileName='+item.fileName+'&bucketName='+item.bucketName+'&fileType='+item.keyType) // Replace with your backend URL
               .then(response => {
                   if (!response.ok) {
                       throw new Error('Network response was not ok');
@@ -68,7 +88,7 @@ function AWSS3SearchComponent(){
                   const url = window.URL.createObjectURL(new Blob([blob]));
                   const link = document.createElement('a');
                   link.href = url;
-                  link.setAttribute('download', item.filename); // Specify the desired filename
+                  link.setAttribute('download', downloadFileName); // Specify the desired filename
                   document.body.appendChild(link);
                   link.click();
                   link.parentNode.removeChild(link); // Clean up the temporary link
