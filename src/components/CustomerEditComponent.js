@@ -57,7 +57,7 @@ function CustomerEditComponent() {
 
     const savecustomer = async (event) => {
         const value = inputFormRefs.current;
-        console.log('---save customer---------',value)
+        console.log('---save customer---------',value);
         event.preventDefault();
         const formData = {};
         for (const name in inputFormRefs.current) {

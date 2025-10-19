@@ -73,9 +73,6 @@ function AWSS3SearchComponent(){
 
       const downloadS3File = (item) => {
           console.log('File Name--',item.fileName);
-          const awss3bean = {
-            obj: item
-          };
           const params = new URLSearchParams({
             bucketName: item.bucketName,
             bucketFolderName: item.location,
