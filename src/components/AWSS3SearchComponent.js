@@ -76,8 +76,15 @@ function AWSS3SearchComponent(){
           const awss3bean = {
             obj: item
           };
-          const downloadFileName = removeFoldernamesFromFile(item.fileName);
-          fetch('http://localhost:8080/gajula/api/v1/aws/s3/ui/downloads3file?fileName='+item.fileName+'&bucketName='+item.bucketName+'&fileType='+item.keyType) // Replace with your backend URL
+          const params = new URLSearchParams({
+            bucketName: item.bucketName,
+            bucketFolderName: item.location,
+            fileName: item.fileName,
+            fileType: item.fileType,
+          });
+          const url = `http://localhost:8080/gajula/api/v1/aws/s3/ui/downloads3file?${params.toString()}`;
+          console.log('url---',url);
+          fetch(url) // Replace with your backend URL
               .then(response => {
                   if (!response.ok) {
                       throw new Error('Network response was not ok');
@@ -88,7 +95,7 @@ function AWSS3SearchComponent(){
                   const url = window.URL.createObjectURL(new Blob([blob]));
                   const link = document.createElement('a');
                   link.href = url;
-                  link.setAttribute('download', downloadFileName); // Specify the desired filename
+                  link.setAttribute('download', item.fileWithExtension); // Specify the desired filename
                   document.body.appendChild(link);
                   link.click();
                   link.parentNode.removeChild(link); // Clean up the temporary link
@@ -134,8 +141,8 @@ return (
                {s3Files.length > 0 && (
                     <tbody style={{backgroundColor: '#ffffff'}} id="s3files_data">
                        {s3Files.map(item => (
-                         <tr key={item.fileName}>
-                           <td>{item.fileName}</td>
+                         <tr key={item.fileWithExtension}>
+                           <td>{item.fileWithExtension}</td>
                            <td>{item.contentLength}</td>
                            <td>{item.lastModified}</td>
                            <td>{item.location}</td>
