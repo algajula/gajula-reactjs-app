@@ -1,3 +1,4 @@
+import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
 
 
 function HomeComponent(){
@@ -20,12 +21,17 @@ return (
 <div class="content_container">
     <div class="content" id="content">
         <div align="left">
+            <UnauthenticatedTemplate>
+              <p>Please Login</p>
+            </UnauthenticatedTemplate>
+            <AuthenticatedTemplate>
                 <label>
                     Introduction:
                     {multilines.map((line, index) => (
                         <p key={index}>{line}</p>
                       ))}
                 </label>
+              </AuthenticatedTemplate>
         </div>
     </div>
 </div>

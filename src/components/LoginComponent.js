@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { InteractionStatus } from '@azure/msal-browser';
-import { useMsal } from "@azure/msal-react";
+import { useMsal, AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
 import { BrowserRouter, useNavigate } from 'react-router-dom';
 import { loginRequest } from "./msal/msalConfig";
 
@@ -22,14 +22,15 @@ import { loginRequest } from "./msal/msalConfig";
 
       return (
             <div align="right">
-              {accounts.length > 0 ? (
-                <div>
-                  <p>Welcome, {accounts[0].name}</p>
+              <AuthenticatedTemplate>
+                  <p>Welcome, {accounts[0]?.name}!</p>
                   <button onClick={handleLogout}>Logout</button>
-                </div>
-              ) : (
-                <button onClick={handleLogin}>Login</button>
-              )}
+                </AuthenticatedTemplate>
+
+                <UnauthenticatedTemplate>
+                  <p>You are not signed in.</p>
+                  <button onClick={handleLogin}>Login</button>
+                </UnauthenticatedTemplate>
             </div>
       );
  }

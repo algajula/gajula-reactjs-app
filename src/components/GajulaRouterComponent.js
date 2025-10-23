@@ -11,6 +11,7 @@ import AWSS3FileUploadComponent from './AWSS3FileUploadComponent';
 import ContactUsComponent from './ContactUsComponent';
 import HomeComponent from './HomeComponent'
 import LoginComponent from './LoginComponent'
+import ProtectedRoute from './ProtectedRoute';
 
 const Home = () => <h2>Home Page</h2>;
 const About = () => <h2>Contact Us</h2>;
@@ -24,7 +25,12 @@ function APiRouters() {
             <Routes>
               <Route path="/" element={<HomeComponent />} />
               <Route path="/home" element={<HomeComponent />} />
-              <Route path="/customer/searchcustomer" element= {<CustomerSearchComponent />} />
+
+              <Route path="/customer/searchcustomer"
+                    element= {<ProtectedRoute>
+                         <CustomerSearchComponent />
+                        </ProtectedRoute> } />
+
               <Route path="/customer/editcustomer/:actionType" element= {<CustomerEditComponent/>} />
               <Route path="/book/searchbook" element={<BookSearchComponent />} />
               <Route path="/book/editbook" element={<BookEditComponent />} />
