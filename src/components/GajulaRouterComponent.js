@@ -27,15 +27,23 @@ function APiRouters() {
               <Route path="/home" element={<HomeComponent />} />
 
               <Route path="/customer/searchcustomer"
-                    element= {<ProtectedRoute>
-                         <CustomerSearchComponent />
-                        </ProtectedRoute> } />
+                    element= {<ProtectedRoute>  <CustomerSearchComponent /> </ProtectedRoute> } />
 
-              <Route path="/customer/editcustomer/:actionType" element= {<CustomerEditComponent/>} />
-              <Route path="/book/searchbook" element={<BookSearchComponent />} />
-              <Route path="/book/editbook" element={<BookEditComponent />} />
-              <Route path="/awss3/searcs3files" element={<AWSS3SearchComponent />} />
-              <Route path="/awss3/uploads3file" element={<AWSS3FileUploadComponent />} />
+              <Route path="/customer/editcustomer/:actionType"
+              element= {<ProtectedRoute>  <CustomerEditComponent /> </ProtectedRoute> } />
+
+              <Route path="/book/searchbook"
+              element= {<ProtectedRoute>  <BookSearchComponent /> </ProtectedRoute> } />
+
+              <Route path="/book/editbook"
+              element= {<ProtectedRoute>  <BookEditComponent /> </ProtectedRoute> } />
+
+              <Route path="/awss3/searcs3files"
+              element= {<ProtectedRoute>  <AWSS3SearchComponent /> </ProtectedRoute> } />
+
+              <Route path="/awss3/uploads3file"
+              element= {<ProtectedRoute>  <AWSS3FileUploadComponent /> </ProtectedRoute> } />
+
               <Route path="/contactus" element={<ContactUsComponent />} />
                <Route path="/about" element={<About />} />
                <Route path="/login" element={<LoginComponent />} />
