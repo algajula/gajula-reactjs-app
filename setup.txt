@@ -24,5 +24,6 @@ npm install react-scripts --save
 npm install react-scripts@2.1.8
 npm install react-datepicker --save
 npm install date-fns
+npm install @azure/msal-browser @azure/msal-react
 
 npx agrippa generate tabs --styling css --typescript

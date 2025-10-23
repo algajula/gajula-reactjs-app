@@ -1,8 +1,12 @@
 import classes from '..//css/tabs.css';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 export interface TabsProps {}
+
+const apiUrl = process.env.REACT_APP_API_URL;
+console.log(`API URL: ${apiUrl}`);
+const envname = process.env.REACT_APP_ENV_NAME;
+console.log(`ENV NAME: ${envname}`);
 
 function Tabs(){
 
@@ -16,7 +20,7 @@ function Tabs(){
         navigate(path);
   };
 
-  return (
+    return (
       <div className="tabs-container">
         <div className="tab-buttons">
          <div class="navbar">

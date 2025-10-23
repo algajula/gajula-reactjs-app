@@ -1,6 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 import APiRouters from './components/GajulaRouterComponent';
+import LoginComponent from './components/LoginComponent'
+
 
 const apiUrl = process.env.REACT_APP_API_URL;
 console.log(`API URL: ${apiUrl}`);
@@ -15,9 +17,15 @@ function App() {
                   React {envname} environment
             <img src={reactjslogo} height="80px" width="270"/></h1>
         </header>*/
+
+
   return (
     <div className="App">
-        <APiRouters />
+            <header className="App-header">
+                React {envname} environment
+            </header>
+            <LoginComponent />
+            <APiRouters />
     </div>
   );
 }

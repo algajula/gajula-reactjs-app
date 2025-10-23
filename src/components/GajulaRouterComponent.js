@@ -10,6 +10,7 @@ import AWSS3SearchComponent from './AWSS3SearchComponent';
 import AWSS3FileUploadComponent from './AWSS3FileUploadComponent';
 import ContactUsComponent from './ContactUsComponent';
 import HomeComponent from './HomeComponent'
+import LoginComponent from './LoginComponent'
 
 const Home = () => <h2>Home Page</h2>;
 const About = () => <h2>Contact Us</h2>;
@@ -31,6 +32,7 @@ function APiRouters() {
               <Route path="/awss3/uploads3file" element={<AWSS3FileUploadComponent />} />
               <Route path="/contactus" element={<ContactUsComponent />} />
                <Route path="/about" element={<About />} />
+               <Route path="/login" element={<LoginComponent />} />
             </Routes>
           </div>
         </Router>
