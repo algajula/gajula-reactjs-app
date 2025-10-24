@@ -22,10 +22,12 @@ function App() {
   return (
     <div className="App">
             <header className="App-header">
-                React {envname} environment
-                <div align="right">
-                    <label>  <LoginComponent /> </label>
-                </div>
+                <table>
+                    <tr>
+                        <td> React {envname} environment </td>
+                        <td> <LoginComponent /> </td>
+                    </tr>
+                 </table>
             </header>
 
             <APiRouters />

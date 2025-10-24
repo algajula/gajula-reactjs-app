@@ -23,10 +23,13 @@ function LoginComponent() {
       };
 
       return (
-            <div align="right">
+            <div>
               <AuthenticatedTemplate>
-                  Welcome, {accounts[0]?.name}! <UserProfilePhoto />
-                  <MsalLogout />
+                  <div align="right">
+                      Welcome, {accounts[0]?.name}!
+                      <UserProfilePhoto />
+                      <MsalLogout />
+                   </div>
                 </AuthenticatedTemplate>
 
                 <UnauthenticatedTemplate>
