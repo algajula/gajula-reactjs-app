@@ -17,3 +17,9 @@ export const msalInstance = new PublicClientApplication(msalConfig);
 export const loginRequest = {
   scopes: ["User.Read"], // Scopes your application needs
 };
+
+export const handleLogout = async () => {
+    // Clear local storage or session storage if needed
+    localStorage.clear();
+    sessionStorage.clear();
+};

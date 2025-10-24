@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { InteractionStatus } from '@azure/msal-browser';
 import { useMsal, AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
 import { BrowserRouter, useNavigate } from 'react-router-dom';
-import { loginRequest } from "./msal/msalConfig";
+import { loginRequest, handleLogout } from "./msal/msalConfig";
+import UserProfilePhoto from './msal/UserProfilePhoto';
 
 function LoginComponent() {
       console.log('--- LOGIN Component ----')
@@ -15,7 +16,7 @@ function LoginComponent() {
       };
 
       const handleLogout = () => {
-        instance.logoutPopup().catch(e => {
+        instance.logoutPopup(handleLogout).catch(e => {
           console.error(e);
         });
       };
@@ -23,12 +24,12 @@ function LoginComponent() {
       return (
             <div align="right">
               <AuthenticatedTemplate>
-                  <p>Welcome, {accounts[0]?.name}!</p>
+                  Welcome, {accounts[0]?.name}! <UserProfilePhoto />
                   <button onClick={handleLogout}>Logout</button>
                 </AuthenticatedTemplate>
 
                 <UnauthenticatedTemplate>
-                  <p>You are not signed in.</p>
+                  You are not signed in.
                   <button onClick={handleLogin}>Login</button>
                 </UnauthenticatedTemplate>
             </div>

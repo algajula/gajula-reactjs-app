@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { InteractionRequiredAuthError } from "@azure/msal-browser";
 import { useFetchWithMsal } from './useFetchWithMsal';
 
-const apiRequest = {
+export const apiRequest = {
     scopes: ["User.Read"]
 };
 
-const UserProfilePhoto = () => {
+export const UserProfilePhoto = () => {
     const { FetchCustomeHttpGET } = useFetchWithMsal();
     const [data, setData] = useState(null);
 
