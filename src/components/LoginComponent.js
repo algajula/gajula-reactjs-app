@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 import { InteractionStatus } from '@azure/msal-browser';
 import { useMsal, AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
 import { BrowserRouter, useNavigate } from 'react-router-dom';
-import { loginRequest, handleLogout } from "./msal/msalConfig";
+import { loginRequest } from "./msal/msalConfig";
 import UserProfilePhoto from './msal/UserProfilePhoto';
+import MsalLogout from './msal/MsalLogout';
 
 function LoginComponent() {
       console.log('--- LOGIN Component ----')
@@ -25,7 +26,7 @@ function LoginComponent() {
             <div align="right">
               <AuthenticatedTemplate>
                   Welcome, {accounts[0]?.name}! <UserProfilePhoto />
-                  <button onClick={handleLogout}>Logout</button>
+                  <MsalLogout />
                 </AuthenticatedTemplate>
 
                 <UnauthenticatedTemplate>

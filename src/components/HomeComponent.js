@@ -23,6 +23,12 @@ return (
         <div align="left">
             <UnauthenticatedTemplate>
               <p>Please Login</p>
+              <label>
+                  Introduction:
+                  {multilines.map((line, index) => (
+                      <p key={index}>{line}</p>
+                    ))}
+              </label>
             </UnauthenticatedTemplate>
             <AuthenticatedTemplate>
                 <label>
