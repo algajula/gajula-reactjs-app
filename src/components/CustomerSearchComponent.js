@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import getAccessToken from './LoginComponent';
-import { InteractionRequiredAuthError } from "@azure/msal-browser";
-
+import { GetMsalToken } from './msal/GetMsalToken';
 
 function CustomerSearchComponent() {
     console.log('----CustomerSearchComponent--')
@@ -11,6 +9,17 @@ function CustomerSearchComponent() {
     const [data, setData] = useState([]);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
+
+    const { FetchAcquireToken } = GetMsalToken();
+    const [acquireToken, setAcquireToken] = useState([]);
+    useEffect(() => {
+        const acquireToken = async () => {
+            const acquireToken = await FetchAcquireToken();
+            setAcquireToken(acquireToken);
+        };
+        acquireToken();
+    }, [FetchAcquireToken]);
+
 
     const getcustomers = async () => {
         if (!custnumber) {
@@ -24,6 +33,9 @@ function CustomerSearchComponent() {
         setError(null); // Clear previous errors
         console.log('custnumber-----',custnumber);
         const url = `http://localhost:8080/gajula/api/v1/customer/ui/getCustomer/${custnumber}`;
+
+        console.log('AcquireToken---',acquireToken);
+
         try {
           const response = await fetch(url, {
             method: 'GET', // Explicitly setting GET method (optional for GET)

@@ -10,16 +10,26 @@ import AWSS3SearchComponent from './AWSS3SearchComponent';
 import AWSS3FileUploadComponent from './AWSS3FileUploadComponent';
 import ContactUsComponent from './ContactUsComponent';
 import HomeComponent from './HomeComponent'
-import LoginComponent from './LoginComponent'
+import LoginLogoutComponent from './LoginLogoutComponent'
 import ProtectedRoute from './ProtectedRoute';
 
-const Home = () => <h2>Home Page</h2>;
+//const Home = () => <h2>Home Page</h2>;
 const About = () => <h2>Contact Us</h2>;
+const apiUrl = process.env.REACT_APP_API_URL;
+console.log(`API URL: ${apiUrl}`);
+const envname = process.env.REACT_APP_ENV_NAME;
+console.log(`ENV NAME: ${envname}`);
 
 function APiRouters() {
     console.log('----GajulaRouterComponent--')
     return (
         <Router>
+
+          <header className="App-header">
+           React {envname} environment
+            <LoginLogoutComponent />
+          </header>
+
             <Tabs />
           <div className="tab-content">
             <Routes>
@@ -45,8 +55,11 @@ function APiRouters() {
               element= {<ProtectedRoute>  <AWSS3FileUploadComponent /> </ProtectedRoute> } />
 
               <Route path="/contactus" element={<ContactUsComponent />} />
-               <Route path="/about" element={<About />} />
-               <Route path="/login" element={<LoginComponent />} />
+              <Route path="/about" element={<About />} />
+
+              <Route path="/login" element={<LoginLogoutComponent />} />
+              <Route path="/logout" element={<LoginLogoutComponent />} />
+
             </Routes>
           </div>
         </Router>

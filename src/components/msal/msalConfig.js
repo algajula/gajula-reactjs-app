@@ -1,4 +1,4 @@
-import { Configuration, PublicClientApplication, InteractionRequiredAuthError   } from "@azure/msal-browser";
+import { Configuration, PublicClientApplication   } from "@azure/msal-browser";
 
 export const msalConfig: Configuration = {
   auth: {
@@ -16,10 +16,4 @@ export const msalInstance = new PublicClientApplication(msalConfig);
 
 export const loginRequest = {
   scopes: ["User.Read"], // Scopes your application needs
-};
-
-export const handleLogout = async () => {
-    // Clear local storage or session storage if needed
-    localStorage.clear();
-    sessionStorage.clear();
 };
