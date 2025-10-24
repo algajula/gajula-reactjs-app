@@ -1,4 +1,4 @@
-import { Configuration, PublicClientApplication  } from "@azure/msal-browser";
+import { Configuration, PublicClientApplication, InteractionRequiredAuthError   } from "@azure/msal-browser";
 
 export const msalConfig: Configuration = {
   auth: {

@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import getAccessToken from './LoginComponent';
+import { InteractionRequiredAuthError } from "@azure/msal-browser";
+
 
 function CustomerSearchComponent() {
     console.log('----CustomerSearchComponent--')
@@ -21,7 +24,6 @@ function CustomerSearchComponent() {
         setError(null); // Clear previous errors
         console.log('custnumber-----',custnumber);
         const url = `http://localhost:8080/gajula/api/v1/customer/ui/getCustomer/${custnumber}`;
-
         try {
           const response = await fetch(url, {
             method: 'GET', // Explicitly setting GET method (optional for GET)
@@ -66,6 +68,7 @@ return (
     <div class="content" id="content">
         <div align="center">
             <h3>Customer Search</h3>
+
             <form action = "#" method = "GET" name="customer">
                 <p> Enter Custamer Number:
                     <label>

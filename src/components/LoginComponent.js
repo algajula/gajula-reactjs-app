@@ -4,7 +4,7 @@ import { useMsal, AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/
 import { BrowserRouter, useNavigate } from 'react-router-dom';
 import { loginRequest } from "./msal/msalConfig";
 
- function LoginComponent() {
+function LoginComponent() {
       console.log('--- LOGIN Component ----')
       const { instance, accounts, inProgress } = useMsal();
 
