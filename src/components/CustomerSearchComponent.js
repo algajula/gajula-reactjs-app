@@ -18,7 +18,7 @@ function CustomerSearchComponent() {
             setAcquireToken(acquireToken);
         };
         acquireToken();
-    }, [FetchAcquireToken]);
+    }, []);
 
 
     const getcustomers = async () => {

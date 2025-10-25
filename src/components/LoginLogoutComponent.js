@@ -9,10 +9,22 @@ function LoginLogoutComponent() {
 
     const handleLogout = async () => {
         // Clear local storage or session storage if needed
+        console.log('----- LOGOUT -----------');
         localStorage.clear();
         sessionStorage.clear();
         localStorage.removeItem('authToken');
-        navigate('/home');
+        //navigate('/home');
+        try {
+          await instance.logoutRedirect({
+            //postLogoutRedirectUri: "http://localhost:3000/", // Replace with your desired redirect URI
+            onRedirectNavigate: (url) => {
+                // Return false to stop navigation after local logout
+                return false;
+              },
+          });
+        } catch (error) {
+          console.error("Error during logout:", error);
+        }
     };
 
     const handleLogin = () => {

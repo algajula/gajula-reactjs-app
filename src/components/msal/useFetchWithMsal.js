@@ -35,19 +35,8 @@ export const useFetchWithMsal = () => {
             return imageObjectURL;
 
         } catch (error) {
-            // If silent acquisition fails, fall back to an interactive method (like a pop-up)
-            if (error instanceof InteractionRequiredAuthError) {
-                instance.acquireTokenPopup(tokenRequest)
-                    .then(response => {
-                        const accessToken = response.accessToken;
-                        // Retry the fetch call with the new token
-                        return FetchCustomeHttpGET(apiEndpoint, tokenRequest);
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
-            }
-            console.error(error);
+            return null;
+
         }
     };
 

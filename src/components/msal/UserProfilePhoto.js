@@ -17,7 +17,7 @@ export const UserProfilePhoto = () => {
             setData(result);
         };
         fetchProfileData();
-    }, [FetchCustomeHttpGET]);
+    }, []);
 
     if (!data) {
         return '';
